@@ -8,10 +8,12 @@ const setReminder = async (req,res)=>{
 }
 const getReminder = async (req,res)=>{
     let query = {}
-    if(req.query && req.query.user)
-        query={where:{user:req.query.user}}
-    if(req.query && req.query.after)
-        query={where:{date:{[Op.gte]:new Date(parseInt(req.query.after))}}}    
+    if(!!req.query)
+        query={where:{}}
+    if(req.query.user)
+        query.where={...query.where,user:req.query.user}
+    if(req.query.after)
+    query.where={...query.where,date:{[Op.gte]:new Date(parseInt(req.query.after))}}    
 
     let result = await Reminders.findAll(query)
     res.status(200).json(result)
