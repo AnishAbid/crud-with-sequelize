@@ -49,32 +49,32 @@ const deleteReminder = async (req,res)=>{
           })
           if(!result)
             res.status(404)
-        res.status(200).json(result)
+            return res.status(200).json(result)
     }catch(e){
-        res.status(500).json(e)
+        return res.status(500).json(e)
     }
     
 }
 const updatePatch = async (req,res)=>{
     try{
         let result = await Reminders.update(req.body,{where:{id:req.params.id}})
-        if(!result)
-            res.status(404)
+        if(!result[0])
+        return res.status(404)
     
-        res.status(200).json(result)
+            return res.status(200).json(result)
     }catch(e){
-        res.status(500).json(e)
+        return res.status(500).json(e)
     }
     
 }
 const update = async (req,res)=>{
     try{
         let result = await Reminders.update(req.body,{where:{id:req.params.id}})
-        if(!result)
-            res.status(404)
-        res.status(200).json(result)
+        if(!result[0])
+        return res.status(404)
+        return res.status(200).json(result)
     }catch(e){
-        res.status(500).json(e)
+        return res.status(500).json(e)
     }
     
 }
